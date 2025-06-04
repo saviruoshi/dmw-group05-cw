@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Adams Peak Inn - Contact</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #2d6a4f 0%, #1b5e20 100%);
+            color: white;
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 600;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 0;
+            margin: 0;
+            align-items: center;
+        }
+
+        .nav-links li {
+            position: relative;
+        }
+
+        .nav-links li a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+            padding: 8px 12px;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links li a:hover {
+            background-color: rgba(255,255,255,0.2);
+            transform: translateY(-1px);
+        }
+
+        .logout-btn, .view-btn {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+        }
+
+        .logout-btn:hover {
+            background: linear-gradient(135deg, #b91c1c 0%, #991b1b 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(220, 38, 38, 0.4);
+        }
+
+        .view-btn {
+            background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
+            margin-left: 10px;
+            box-shadow: 0 2px 8px rgba(25, 118, 210, 0.3);
+        }
+
+        .view-btn:hover {
+            background: linear-gradient(135deg, #7f8081 0%, #8e8f91 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(228, 229, 230, 0.4);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: linear-gradient(135deg, #f1efef 0%, #e5e6e7 100%);
+            min-width: 180px;
+            box-shadow: 0 8px 25px rgba(250, 248, 248, 0.15);
+            z-index: 1;
+            top: 100%;
+            left: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .dropdown-content a {
+            color: #050505;
+            padding: 12px 18px;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .dropdown-content a:hover {
+            background: linear-gradient(135deg, #d3d3d8 0%, #ccc8c8 100%);
+            color: #030303;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        #menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                margin-top: 15px;
+            }
+
+            .nav-links.visible {
+                display: flex;
+            }
+
+            #menu-toggle {
+                display: block;
+            }
+
+            .dropdown-content {
+                position: relative;
+                top: auto;
+                left: auto;
+                box-shadow: none;
+                background: rgba(255,255,255,0.1);
+                border: none;
+            }
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 50px 20px;
+            max-width: 700px;
+            margin: auto;
+        }
+
+        .contact-container {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .contact-container h2 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #2d6a4f 0%, #1b5e20 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .contact-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #333;
+            font-size: 15px;
+        }
+
+        .contact-container input,
+        .contact-container textarea {
+            width: 100%;
+            padding: 15px 18px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            border: 2px solid #e1e5e9;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.8);
+        }
+
+        .contact-container input:focus,
+        .contact-container textarea:focus {
+            outline: none;
+            border-color: #2d6a4f;
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .contact-container textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-container button {
+            background: linear-gradient(135deg, #2d6a4f 0%, #1b5e20 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            border-radius: 12px;
+            width: 100%;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(45, 106, 79, 0.3);
+        }
+
+        .contact-container button:hover {
+            background: linear-gradient(135deg, #1b5e20 0%, #0d4d1b 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(45, 106, 79, 0.4);
+        }
+
+        .contact-container button:active {
+            transform: translateY(-1px);
+        }
+
+        .footer {
+            background: linear-gradient(135deg, #2d6a4f 0%, #1b5e20 100%);
+            color: white;
+            text-align: center;
+            padding: 25px 0;
+            margin-top: 60px;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+
+        .footer p {
+            margin: 0;
+            font-size: 16px;
+            font-weight: 500;
+        }
+
+        /* Enhanced responsive design */
+        @media (max-width: 768px) {
+            .contact-container {
+                padding: 25px;
+                margin: 20px 10px;
+            }
+
+            .contact-container h2 {
+                font-size: 24px;
+            }
+        }
+    </style>
+
+    <script>
+        function validateContactForm(event) {
+            const name = document.getElementById("name").value.trim();
+            const email = document.getElementById("email").value.trim();
+            const message = document.getElementById("message").value.trim();
+
+            if (name === "" || email === "" || message === "") {
+                alert("Please fill out all fields before submitting the form.");
+                event.preventDefault();
+                return false;
+            }
+
+            // Enhanced email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email)) {
+                alert("Please enter a valid email address.");
+                event.preventDefault();
+                return false;
+            }
+
+            return true;
+        }
+
+        function logout() {
+            if (confirm("Are you sure you want to logout?")) {
+                alert("Logging out...");
+                window.location.href = "login.html";
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+            if (form) {
+                form.addEventListener("submit", validateContactForm);
+            }
+
+            const toggle = document.getElementById("menu-toggle");
+            const menu = document.getElementById("nav-menu");
+            if (toggle && menu) {
+                toggle.addEventListener("click", () => {
+                    menu.classList.toggle("visible");
+                });
+            }
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <h1>Adams Peak Inn</h1>
+            <button id="menu-toggle">☰</button>
+            <ul class="nav-links" id="nav-menu">
+                <li><a href="Main.html">Home</a></li>
+                <li><a href="rooms.html">Rooms</a></li>
+                <li><a href="restaurant.html">Restaurant</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li><a href="Bookings.html">New Booking</a></li>
+                <li class="dropdown">
+                    <a href="#">Manage Bookings ▼</a>
+                    <div class="dropdown-content">
+                        <a href="ViewBooking.php">View Bookings</a>
+                        <a href="edit_booking.php">Edit Bookings</a>
+                        <a href="CancelBooking.php">Cancel Bookings</a>
+                    </div>
+                </li>
+                <li><button class="logout-btn" onclick="logout()">Logout</button></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Contact Form -->
+    <section class="contact-section">
+        <div class="contact-container">
+            <h2>Contact Us</h2>
+            
+            <form method="POST" action="contact.php">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+
+                <label for="message">Your Message</label>
+                <textarea id="message" name="message" rows="6" placeholder="Write your message here..." required></textarea>
+
+                <button type="submit">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2025 Adams Peak Inn. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Adams Peak Inn - Rooms</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    /* Navbar */
+    .navbar {
+      background-color: #2d6a4f;
+      color: white;
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .navbar .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .navbar h1 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      padding: 0;
+      margin: 0;
+    }
+
+    .nav-links li {
+      position: relative;
+    }
+
+    .nav-links li a {
+      color: white;
+      text-decoration: none;
+    }
+
+    .nav-links li a:hover {
+      text-decoration: underline;
+    }
+
+    /* Logout Button Styling */
+    .logout-btn {
+      background-color: #d32f2f !important;
+      color: white !important;
+      padding: 8px 16px !important;
+      border-radius: 4px !important;
+      border: 1px solid #b71c1c !important;
+      cursor: pointer !important;
+      transition: background-color 0.3s ease !important;
+    }
+    .logout-btn:hover {
+      background-color: #b71c1c !important;
+      text-decoration: none !important;
+    }
+
+    #menu-toggle {
+      display: none;
+      background: none;
+      border: none;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
+
+    /* Dropdown styling */
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background-color: #f8f8f8;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      min-width: 160px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 1001;
+    }
+
+    .dropdown-content li a {
+      display: block;
+      padding: 10px 16px;
+      color: rgb(5, 5, 5);
+      text-decoration: none;
+    }
+
+    .dropdown-content li a:hover {
+      background-color: #d4dad7;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .nav-links.visible {
+        display: flex;
+      }
+
+      #menu-toggle {
+        display: block;
+      }
+
+      /* Mobile logout button styling */
+      .logout-btn {
+        background-color: #d32f2f !important;
+        color: white !important;
+        padding: 8px 12px !important;
+        border-radius: 4px !important;
+        margin-top: 8px !important;
+      }
+
+      .dropdown-content {
+        position: static;
+        box-shadow: none;
+      }
+
+      .dropdown:hover .dropdown-content {
+        display: none;
+      }
+
+      .dropdown > a::after {
+        content: ' ▼';
+      }
+
+      .dropdown > a:focus + .dropdown-content,
+      .dropdown-content:focus-within {
+        display: flex;
+        flex-direction: column;
+      }
+    }
+
+    /* General Layout */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    .content {
+      padding: 40px 20px;
+    }
+
+    .page-title {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 30px;
+    }
+
+    .room-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .room-card {
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      width: 320px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .room-card:hover {
+      transform: scale(1.03);
+    }
+
+    .room-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+    }
+
+    .room-card h3 {
+      margin: 15px;
+      font-size: 20px;
+    }
+
+    .room-card ul {
+      margin: 0 15px 10px 15px;
+      padding-left: 20px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .price {
+      font-weight: bold;
+      font-size: 18px;
+      margin: 10px 15px 20px;
+      color: #1b4332;
+    }
+
+    .footer {
+      background-color: #2d6a4f;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+
+  <script>
+    function redirectToBooking(roomType) {
+      const url = `Bookings.html?room=${encodeURIComponent(roomType)}`;
+      window.location.href = url;
+    }
+
+    // Logout function
+    function logout() {
+      if (confirm("Are you sure you want to logout?")) {
+        // In a real application, you would handle session management server-side
+        
+        // Redirect to login page or home page
+        alert("You have been logged out successfully!");
+        window.location.href = "login.html"; // Change this to your login page
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const toggle = document.getElementById('menu-toggle');
+      const menu = document.getElementById('nav-menu');
+      if (toggle && menu) {
+        toggle.addEventListener('click', () => {
+          menu.classList.toggle('visible');
+        });
+      }
+    });
+  </script>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="container">
+      <h1>Adams Peak Inn</h1>
+      <button id="menu-toggle">☰</button>
+      <ul class="nav-links" id="nav-menu">
+        <li><a href="Main.html">Home</a></li>
+        <li><a href="rooms.html">Rooms</a></li>
+        <li><a href="restaurant.html">Restaurant</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="Bookings.html">New Booking</a></li>
+        <li class="dropdown">
+          <a href="#">Manage Bookings ▼</a>
+          <ul class="dropdown-content">
+            <li><a href="ViewBooking.php">View Bookings</a></li>
+            <li><a href="edit_booking.php">Edit Bookings</a></li>
+            <li><a href="CancelBooking.php">Cancel Bookings</a></li>
+          </ul>
+        </li>
+        <li><a href="#" class="logout-btn" onclick="logout()">Logout</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Room Cards -->
+  <div class="content">
+    <h2 class="page-title">Our Rooms</h2>
+    <div class="room-grid">
+      <div class="room-card" onclick="redirectToBooking('Standard Room')">
+        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/533165628.jpg?k=f684460ccf7c979ae533a76c38f09eda21a38ccfb9b5ac9120dc7f17b03aedc2&o=&hp=1" alt="Standard Room">
+        <h3>Standard Room</h3>
+        <ul>
+          <li>Double bed with clean linen</li>
+          <li>Free Wi-Fi</li>
+          <li>En-suite bathroom</li>
+          <li>Mountain view</li>
+          <li>Air conditioning</li>
+          <li>TV and wardrobe</li>
+          <li>Daily housekeeping</li>
+        </ul>
+        <p class="price">$30/night</p>
+      </div>
+
+      <div class="room-card" onclick="redirectToBooking('Deluxe Room')">
+        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/533165117.jpg?k=2e5bc4ccd2c5e8781ab0ebcc36df23ad53f399d507bec9d63ad4d6ce6f3e4eb3&o=&hp=1" alt="Deluxe Room">
+        <h3>Deluxe Room</h3>
+        <ul>
+          <li>King-size bed with premium bedding</li>
+          <li>Private balcony</li>
+          <li>Luxury en-suite bathroom</li>
+          <li>Tea/coffee facilities</li>
+          <li>In-room dining & mini fridge</li>
+          <li>Work desk and sofa</li>
+          <li>Smart TV and A/C</li>
+        </ul>
+        <p class="price">$50/night</p>
+      </div>
+
+      <div class="room-card" onclick="redirectToBooking('Family Room')">
+        <img src="https://cf.bstatic.com/xdata/images/hotel/max1024x768/533164824.jpg?k=d402d82d13bb0730bb8386a3a19b4c93aa5035336cdb57e1d335ad8fdfdae56e&o=&hp=1" alt="Family Room">
+        <h3>Family Room</h3>
+        <ul>
+          <li>Two double beds</li>
+          <li>Spacious lounge</li>
+          <li>Fridge and satellite TV</li>
+          <li>Crib & extra bed on request</li>
+          <li>Complimentary breakfast</li>
+          <li>Large windows with view</li>
+          <li>Ideal for 4+ guests</li>
+        </ul>
+        <p class="price">$70/night</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>© 2025 Adams Peak Inn. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>

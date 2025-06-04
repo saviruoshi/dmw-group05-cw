@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adams Peak Inn - Restaurant</title>
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body {
+      background-color: #f3f4f6;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav {
+      background-color: #2f6f58;
+      color: white;
+      padding: 1rem;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 10;
+    }
+
+    nav .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav h1 {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    nav ul {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      align-items: center;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    nav ul li a:hover {
+      text-decoration: underline;
+    }
+
+    .logout-btn {
+      background-color: #dc2626;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.25rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background-color: #b91c1c;
+    }
+
+    .dropdown-arrow {
+      font-size: 0.75rem;
+      margin-left: 0.25rem;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      top: 2.5rem;
+      left: 0;
+      background-color: white;
+      min-width: 160px;
+      border-radius: 0.25rem;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+      z-index: 1000;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 0.75rem 1rem;
+      display: block;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .show {
+      display: block;
+    }
+
+    .restaurant-section {
+      padding-top: 6rem;
+      padding-bottom: 2rem;
+      min-height: 100vh;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .restaurant-section h2 {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    .restaurant-section p {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 2rem auto;
+      font-size: 1.125rem;
+    }
+
+    .grid {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .food-card {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .food-card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .food-card img {
+      width: 100%;
+      height: 12rem;
+      object-fit: cover;
+      border-radius: 0.5rem;
+    }
+
+    .food-card h3 {
+      font-size: 1.25rem;
+      font-weight: bold;
+      margin-top: 1rem;
+    }
+
+    .food-card p {
+      margin-top: 0.5rem;
+    }
+
+    footer {
+      background-color: #2f6f58;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <div class="container">
+      <h1>Adams Peak Inn</h1>
+      <ul>
+        <li><a href="Main.html">Home</a></li>
+        <li><a href="rooms.html">Rooms</a></li>
+        <li><a href="restaurant.html">Restaurant</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="Bookings.html">New Booking</a></li>
+        <li>
+          <a onclick="toggleDropdown()">Manage Bookings <span class="dropdown-arrow">▼</span></a>
+          <div id="dropdown" class="dropdown-content">
+            <a href="ViewBooking.php">View Bookings</a>
+            <a href="edit_booking.php">Edit Bookings</a>
+            <a href="CancelBooking.html">Cancel Bookings</a>
+          </div>
+        </li>
+        <li><button class="logout-btn" onclick="logout()">Logout</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Restaurant Section -->
+  <section class="restaurant-section">
+    <h2>Our Restaurant</h2>
+    <p>Enjoy authentic Sri Lankan cuisine and international dishes at our on-site restaurant, crafted with fresh, local ingredients.</p>
+    <div class="grid">
+      <div class="food-card">
+        <img src="https://th.bing.com/th/id/R.32777d4a188ec4136e0d0bd6c90da588?rik=FtKsAR6h95kYIA&pid=ImgRaw&r=0" alt="Sri Lankan Rice and Curry">
+        <h3>Sri Lankan Rice and Curry</h3>
+        <p>A flavorful blend of rice, curries, and sambols, showcasing the best of local cuisine.</p>
+      </div>
+      <div class="food-card">
+        <img src="https://townsquare.media/site/699/files/2022/11/attachment-Untitled-design-2022-11-11T131814.940.jpg?w=1200&h=0&zc=1&s=0&a=t&q=89" alt="American Platter">
+        <h3>American Platter</h3>
+        <p>A selection of global dishes, perfect for diverse tastes.</p>
+      </div>
+      <div class="food-card">
+        <img src="https://3.bp.blogspot.com/-kdcIUPVEP5M/WhGe2q1stXI/AAAAAAAAY6o/RC5cYcZK4t4LNP0R8IDvklIYZ2bzFzHjwCLcBGAs/s640/E-20171115-54.jpg" alt="Japanese Platter">
+        <h3>Japanese Platter</h3>
+        <p>A selection of global dishes, perfect for diverse tastes.</p>
+      </div>
+      <div class="food-card">
+        <img src="https://img.freepik.com/premium-photo/plate-spaghetti-with-chicken-vegetables-table_865967-481170.jpg" alt="Italian Platter">
+        <h3>Italian Platter</h3>
+        <p>A selection of global dishes, perfect for diverse tastes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 Adams Peak Inn. All rights reserved.</p>
+  </footer>
+
+  <!-- JavaScript -->
+  <script>
+    function toggleDropdown() {
+      document.getElementById("dropdown").classList.toggle("show");
+    }
+
+    function logout() {
+      if (confirm("Are you sure you want to logout?")) {
+        // You can customize this to redirect to your logout page or perform logout actions
+        alert("Logging out...");
+        window.location.href = "login.html"; // Redirect to login page
+      }
+    }
+
+    window.onclick = function(event) {
+      if (!event.target.matches('a') && !event.target.matches('.dropdown-arrow')) {
+        var dropdowns = document.getElementsByClassName("dropdown-content");
+        for (var i = 0; i < dropdowns.length; i++) {
+          var openDropdown = dropdowns[i];
+          if (openDropdown.classList.contains('show')) {
+            openDropdown.classList.remove('show');
+          }
+        }
+      }
+    }
+  </script>
+
+</body>
+</html>

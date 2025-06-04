@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Edit Booking</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Inline styling for simplicity */
+    table {
+      width: 90%;
+      margin: 20px auto;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding: 12px;
+      border: 1px solid #ccc;
+      text-align: center;
+    }
+    button {
+      padding: 6px 12px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    form {
+      width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+    }
+    form input, form select {
+      width: 100%;
+      margin-top: 10px;
+      padding: 8px;
+    }
+    form label {
+      margin-top: 15px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1 style="text-align:center;">Edit Booking</h1>
+  </header>
+
+  <main>
+    <table id="BookingsTable">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Room Type</th>
+          <th>Check-In</th>
+          <th>Check-Out</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Rows added dynamically -->
+      </tbody>
+    </table>
+
+    <!-- Hidden Edit Form -->
+    <form id="editForm" action="edit_booking.php" method="POST" style="display: none;">
+      <input type="hidden" id="booking_id" name="booking_id">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="room_type">Room Type:</label>
+      <select id="room_type" name="room_type" required>
+        <option value="Single">Single</option>
+        <option value="Double">Double</option>
+        <option value="Suite">Suite</option>
+      </select>
+
+      <label for="check_in">Check-In Date:</label>
+      <input type="datetime" id="check_in" name="check_in" required>
+
+      <label for="checkOut">Check-Out Date:</label>
+      <input type="datetime" id="check_out" name="check_out" required>
+
+      <button type="submit">Update Booking</button>
+    </form>
+  </main>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      fetch("GetBookings.php")
+        .then(response => response.json())
+        .then(data => {
+          const tableBody = document.querySelector("#bookingsTable tbody");
+
+          data.forEach(booking => {
+            const row = document.createElement("tr");
+
+            row.innerHTML = `
+              <td>${booking.id}</td>
+              <td>${booking.name}</td>
+              <td>${booking.email}</td>
+              <td>${booking.room_type}</td>
+              <td>${booking.check_in}</td>
+              <td>${booking.check_out}</td>
+              <td><button onclick='fillForm(${JSON.stringify(booking)})'>Edit</button></td>
+            `;
+
+            tableBody.appendChild(row);
+          });
+        })
+        .catch(error => console.error("Error fetching bookings:", error));
+    });
+
+    function fillForm(Booking) {
+      document.getElementById("editForm").style.display = "block";
+      document.getElementById("booking_id").value = booking.id;
+      document.getElementById("name").value = booking.name;
+      document.getElementById("email").value = booking.email;
+      document.getElementById("room_type").value = booking.room_type;
+      document.getElementById("check_in").value = booking.check_in;
+      document.getElementById("check_out").value = booking.check_out;
+      window.scrollTo({ top: document.getElementById("editForm").offsetTop, behavior: 'smooth' });
+    }
+  </script>
+
+</body>
+</html>

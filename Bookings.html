@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <style>
+        /* General Styles */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f8f8f8;
+}
+
+.navbar {
+  background-color: #2d6a4f;
+  color: white;
+  padding: 15px 20px;
+}
+
+.navbar .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar h1 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.nav-links {
+  list-style-type: none;
+  display: flex;
+  gap: 15px;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: #1b4332;
+}
+
+/* Logout Button */
+.logout-btn {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.logout-btn:hover {
+  background-color: #b91c1c;
+}
+
+/* Dropdown Styles */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-btn {
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.dropdown-btn:hover {
+  background-color: #1b4332;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  min-width: 180px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 4px;
+  top: 100%;
+  right: 0;
+}
+
+.dropdown-content a {
+  color: #333;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.3s;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+  color: #2d6a4f;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Form Section */
+.form-container {
+  max-width: 600px;
+  margin: 40px auto;
+  background-color: white;
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.form-container h2 {
+  text-align: center;
+  margin-bottom: 25px;
+  color: #2d6a4f;
+}
+
+form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+form input,
+form select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 18px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #2d6a4f;
+  color: white;
+  border: none;
+  font-size: 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+form button:hover {
+  background-color: #1b4332;
+}
+
+/* Footer */
+.footer {
+  background-color: #2d6a4f;
+  color: white;
+  text-align: center;
+  padding: 15px;
+  margin-top: 40px;
+}
+
+/* Success/Error Messages */
+.message {
+  padding: 15px;
+  margin: 20px 0;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+    </style>
+  <meta charset="UTF-8">
+  <title>Adams Peak Inn - Bookings</title>
+  <script>
+    window.onload = function () {
+      const params = new URLSearchParams(window.location.search);
+      const room = params.get('room');
+      if (room) {
+        const roomSelect = document.getElementById('room-type');
+        if (roomSelect) {
+          roomSelect.value = room;
+        }
+      }
+    };
+
+    function logout() {
+      if (confirm("Are you sure you want to logout?")) {
+        // You can customize this to redirect to your logout page or perform logout actions
+        alert("Logging out...");
+        window.location.href = "login.html"; // Redirect to login page
+      }
+    }
+  </script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container">
+      <h1>Adams Peak Inn</h1>
+      <ul class="nav-links">
+        <li><a href="Main.html">Home</a></li>
+        <li><a href="rooms.html">Rooms</a></li>
+        <li><a href="restaurant.html">Restaurant</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li><a href="Bookings.html">New Booking</a></li>
+        <li class="dropdown">
+          <button class="dropdown-btn">Manage Bookings ▼</button>
+          <div class="dropdown-content">
+            <a href="ViewBooking.php">View Bookings</a>
+            <a href="edit_booking.php">Edit Booking</a>
+            <a href="CancelBooking.php">Cancel Booking</a>
+          </div>
+        </li>
+        <li><button class="logout-btn" onclick="logout()">Logout</button></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="form-container">
+    <h2>Book Your Stay</h2>
+    <form action="InsertBooking.php" method="POST">
+      <label for="room-type">Select Room</label>
+      <select id="room-type" name="room_type" required>
+        <option value="">Select a room</option>
+        <option value="Standard Room">Standard Room - $30/night</option>
+        <option value="Deluxe Room">Deluxe Room - $50/night</option>
+        <option value="Family Room">Family Room - $70/night</option>
+      </select>
+
+      <label for="guest-name">Full Name</label>
+      <input type="text" id="guest-name" name="guest_name" required>
+
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" name="phone" required>
+
+      <label for="check-in">Check-In Date</label>
+      <input type="date" id="check-in" name="check_in" required>
+
+      <label for="check-out">Check-Out Date</label>
+      <input type="date" id="check-out" name="check_out" required>
+
+      <label for="guests">Number of Guests</label>
+      <input type="number" id="guests" name="guests" min="1" max="10" required>
+
+      <label for="special-requests">Special Requests (Optional)</label>
+      <input type="text" id="special-requests" name="special_requests" placeholder="Any special requirements...">
+
+      <button type="submit">Submit Booking</button>
+    </form>
+  </div>
+
+  <footer class="footer">
+    <p>© 2025 Adams Peak Inn. All rights reserved.</p>
+  </footer>
+</body>
+</html>

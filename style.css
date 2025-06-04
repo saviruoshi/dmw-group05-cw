@@ -1,0 +1,60 @@
+/* Custom styles to complement Tailwind CSS */
+
+body {
+    font-family: 'Arial', sans-serif;
+}
+
+.hero {
+    background-size: cover;
+    background-position: center;
+    min-height: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+nav ul li a {
+    transition: all 0.3s ease;
+}
+
+nav ul li a:hover {
+    color: #d1fae5;
+}
+
+
+/* Custom styles to match the original design */
+.bg-fill {
+    background-image: url('https://cf.bstatic.com/xdata/images/hotel/max1024x768/533165628.jpg?k=f684460ccf7c979ae533a76c38f09eda21a38ccfb9b5ac9120dc7f17b03aedc2&o=&hp=1');
+    background-size: cover;
+    background-position: center;
+}
+
+/* Mobile menu styles */
+@media (max-width: 767px) {
+    #nav-menu.active {
+        display: block;
+    }
+    #nav-menu {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #16a34a; /* Matches bg-green-600 */
+        padding: 1rem;
+    }
+    #nav-menu li {
+        margin: 1rem 0;
+    }
+}
+
+/* Form input focus styles */
+input:focus, select:focus {
+    outline: none;
+    border-color: #16a34a; /* Matches green theme */
+    box-shadow: 0 0 5px rgba(22, 163, 74, 0.5);
+}
+
+
+
